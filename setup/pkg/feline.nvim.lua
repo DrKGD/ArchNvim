@@ -588,8 +588,8 @@ return { 'famiu/feline.nvim',
 						return { tonumber(use), tonumber(max)}
 					end,
 					function(c, x)
-						x.hl.fg = mix(procolor.red, '#FFFFFF', c[1]/c[2] * 4)
-						return string.format('%.2f/%.2fgb ', c[1]/1024, c[2]/1024)
+						x.hl.fg = mix(procolor.green, '#FFFFFF', c[1]/c[2] * 2)
+						return string.format('%.2f/%.2fgb  ', c[1]/1024, c[2]/1024)
 					end
 					),
 				hl = { bg = 'dorange' }
@@ -597,7 +597,7 @@ return { 'famiu/feline.nvim',
 
 			{ provider = 'makeTask',
 				left_sep = { 'block' },
-				right_sep = { 'block' },
+				-- right_sep = { 'block' },
 				enabled = function() return not MinimalStatusline and winsize(140)() end,
 				lambda = jobmake('cpu', 'mpstat',
 					[[mpstat -P all 1 | awk '$3 ~ /all/ {print $13}']],
@@ -607,7 +607,7 @@ return { 'famiu/feline.nvim',
 					end,
 					function(c, x)
 						x.hl.fg = mix(procolor.red, '#FFFFFF', c/25)
-						return string.format('%.2f', c) .. '%%' .. ' '
+						return string.format('%.2f', c) .. '%%' .. '  '
 					end
 					),
 				hl = { bg = 'dorange' }
@@ -621,7 +621,7 @@ return { 'famiu/feline.nvim',
 					nil,
 					function(p) return nil end,
 					function(p, c) return 1000 end,
-					function(c, x) return string.format('%s %s', '', os.date(x.format)) end
+					function(c, x) return string.format('%s %s', ' ', os.date(x.format)) end
 				),
 				left_sep = { 'vertical_bar', 'block' },
 				right_sep = { 'block' },

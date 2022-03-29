@@ -81,25 +81,54 @@ PROFILES.DESKTOP = {
 		interface = function()
 			vim.cmd([[colorscheme rvcs]])
 
-			local setHi = require('utils.modx').setHi
-			local mix		= require('utils.modx').mix
-			setHi({
-				LineNrAbove			= { guifg = mix(PREFERENCES.misc.colors.blue,				'#000000', 0.5) },
-				LineNr					= { guifg = mix(PREFERENCES.misc.colors.green,			'#000000', 0.85)},
-				LineNrBelow			= { guifg = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) },
-				Visual					= { guibg = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) },
-				-- Normal					= { guifg = mix('#FFFFFF',													'#000000', 0.90),
-				-- 	guibg = nil },
-				GitSignsAdd			= { guifg = mix(PREFERENCES.misc.colors.green,			'#000000', 0.6)},
-				GitSignsChange	= { guifg = mix(PREFERENCES.misc.colors.yellow,			'#000000', 0.6)},
-				GitSignsDelete	= { guifg = mix(PREFERENCES.misc.colors.red,				'#000000', 0.6)},
-				SignColumn			= { guibg = 'NONE' },
-				Comment					= { gui   = 'NONE' },
-				SpecialComment	= { gui   = 'NONE' },
-				TSComment				= { gui   = 'NONE' },
-		
-				-- NonText					= { guibg = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.25)},
-			})
+			vim.defer_fn(function()
+				local setHi = require('utils.modx').setHi
+				local mix		= require('utils.modx').mix
+
+				local persistent = {
+					selection = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) 
+				}
+
+
+				setHi({
+					-- Line Number, above and below
+					LineNrAbove			= { guifg = mix(PREFERENCES.misc.colors.blue,				'#000000', 0.5) },
+					LineNr					= { guifg = mix(PREFERENCES.misc.colors.green,			'#000000', 0.85), guibg = 'NONE'},
+					LineNrBelow			= { guifg = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) },
+
+					-- Visual selection and normal text
+					Visual					= { guibg = persistent.selection },
+					Normal					= { guifg = mix('#FFFFFF',													'#000000', 0.90), guibg = 'NONE'},
+					MsgArea					= { gui='bold',  guibg = 'NONE', guifg = PREFERENCES.misc.colors.green},
+
+					-- Gutter
+					SignColumn			= { guibg = 'NONE' },
+					GitSignsAdd			= { guifg = mix(PREFERENCES.misc.colors.green,			'#000000', 0.6), guibg = 'NONE'},
+					GitSignsChange	= { guifg = mix(PREFERENCES.misc.colors.yellow,			'#000000', 0.6), guibg = 'NONE'},
+					GitSignsDelete	= { guifg = mix(PREFERENCES.misc.colors.red,				'#000000', 0.6), guibg = 'NONE'},
+
+					-- Transparent window separator
+					WinSeparator		= { guibg = 'NONE', guifg = PREFERENCES.misc.colors.orange},
+
+					-- Transparent EOF
+					NonText					= { guibg	= 'NONE' },
+
+					-- Transparent non-selected buffer
+					NormalNC				= { guibg		= 'NONE' },
+
+					-- Should I keep italics?
+					Comment					= { gui   = 'NONE' },
+					SpecialComment	= { gui   = 'NONE' },
+					TSComment				= { gui   = 'NONE' },
+
+					-- Telescope Buffer 
+					TelescopeNormal	= { gui = 'NONE' },
+					TelescopeBorder = { guibg = 'NONE' },
+					TelescopeSelection = { guibg = persistent.selection },
+				})
+
+				-- vim.cmd([[TransparentEnable]])
+			end, 50)
 		end
 	}
 }

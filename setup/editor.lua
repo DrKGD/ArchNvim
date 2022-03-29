@@ -34,6 +34,9 @@
 	-- Use gui colors instead
 	vim.opt.termguicolors = true
 
+	-- Single statusline (thanks Famiu)
+	vim.opt.laststatus = 3
+
 	-----------------
 	-- Behaviour   --
 	-----------------
