@@ -20,7 +20,7 @@ M.toggleSpell = function() vim.opt.spell = not vim.opt.spell['_value'] end
 M.save = function()
 	-- Check if readonly
 	if vim.bo.readonly then
-		e('Denied: this is a readonly file!') return end
+		vim.cmd('SudaWrite') return end
 
 	-- Check if terminal
 	if vim.bo.buftype == 'terminal' then
