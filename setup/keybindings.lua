@@ -135,5 +135,8 @@
 	bind({ noremap = true }, 'i', '<A-O>', 'Ò')
 	bind({ noremap = true }, 'i', '<A-d>', '°')
 	bind({ noremap = true }, 'i', '<C-A-e>', '€')
+
+	-- Page up/down
+	-- bind({ noremap = true }, 'n', '<PageUp>', '5j')
 	end)()
 

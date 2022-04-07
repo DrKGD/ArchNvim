@@ -159,7 +159,6 @@ return { 'neovim/nvim-lspconfig',
 		local on_attach = function(client, bufnr)
 			local bind_to = require('utils.wrap').bind_to
 
-			-- Default
 			bind_to(bufnr, { silent = true, noremap = true }, 'n', 'gd', ':lua vim.lsp.buf.definition()<CR>')
 			bind_to(bufnr, { silent = true, noremap = true }, 'n', 'gD', ':lua vim.lsp.buf.declaration()<CR>')
 			bind_to(bufnr, { silent = true, noremap = true }, 'n', 'gr', ':lua vim.lsp.buf.references()<CR>')

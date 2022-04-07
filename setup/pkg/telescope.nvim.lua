@@ -26,16 +26,16 @@ return { 'nvim-telescope/telescope.nvim',
 			'--column',
 			'--smart-case',
 			'--unrestricted',
-			'--unrestricted'
+			'--unrestricted',
 		}
 
 		local find = {
-			'rg',
-			'--files',
-			'--color=never',
+			'fd',
 			'--hidden',
-			'--unrestricted',
-			'--unrestricted'
+			'--no-ignore',
+			'--type',
+			'f',
+			'--strip-cwd-prefix'
 		}
 
 		local ignore = {
@@ -76,14 +76,16 @@ return { 'nvim-telescope/telescope.nvim',
 				['<CR>']				= act.select_default,
 				['<C-e>']				= act.move_selection_previous,
 				['<C-d>']				= act.move_selection_next,
-				['<A-k>']				= act.preview_scrolling_up,
-				['<A-j>']				= act.preview_scrolling_down,
-				['<Up>']				= act.preview_scrolling_up,
-				['<Down>']			= act.preview_scrolling_down,
+				['<PageUp>']		= act.preview_scrolling_up,
+				['<PageDown>']	= act.preview_scrolling_down,
 				['<C-q>']				= act.close,
 				['<C-a>']				= act.file_edit,
 
 				-- Disabled
+				['<A-k>']				= unbinded,
+				['<A-j>']				= unbinded,
+				['<Up>']				= unbinded,
+				['<Down>']			= unbinded,
 				['<C-n>']				= unbinded,
 				['<C-x>']				= unbinded,
 				['<C-v>']				= unbinded,
@@ -101,6 +103,8 @@ return { 'nvim-telescope/telescope.nvim',
 				['<C-e>']				= act.file_edit,
 				['k']						= act.move_selection_previous,
 				['j']						= act.move_selection_next,
+				['<PageUp>']		= act.preview_scrolling_up,
+				['<PageDown>']	= act.preview_scrolling_down,
 				['<A-k>']				= act.preview_scrolling_up,
 				['<A-j>']				= act.preview_scrolling_down,
 				['<Up>']				= act.preview_scrolling_up,

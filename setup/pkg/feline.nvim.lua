@@ -15,24 +15,27 @@ return { 'famiu/feline.nvim',
 
 		local conf = {
 			-- Exclude these file
-			filetypes				= {
-				"NvimTree",
-				"dashboard",
-				"dbui",
-				"packer",
-				"startify",
-				"fugitive",
-				"fugitiveblame",
-				"Trouble",
-				"	lir"
-			},
+			force_inactive = {
+				filetypes				= {
+					"NvimTree",
+					"dashboard",
+					"dbui",
+					"packer",
+					"startify",
+					"fugitive",
+					"fugitiveblame",
+					"Trouble",
+					"	lir",
+					"TelescopePrompt",
+					"harpoon"
+				},
 
-			buftypes				= {
-				"^terminal$"
-			},
+				buftypes				= {
+					"^terminal$",
+				},
 
-			bufnames				= {
-
+				bufnames				= {
+				},
 			},
 
 			-- Set vi mode colors
@@ -61,20 +64,20 @@ return { 'famiu/feline.nvim',
 
 			-- Colors
 			theme = {
-				green		= mix(procolor.green,			'#000000', 0.35	),
-				dgreen		= mix(procolor.green,			'#000000', 0.12	),
-				lblue		= mix(procolor.blue,				'#FFFFFF', 0.5	),
-				blue		= mix(procolor.blue,				'#000000', 0.4	),
-				mblue		= mix(procolor.blue,				'#000000', 0.25	),
-				dblue		= mix(procolor.blue,				'#000000', 0.10	),
+				green		= mix(procolor.green,	'#000000', 0.35	),
+				dgreen	= mix(procolor.green,  '#000000', 0.12	),
+				lblue		= mix(procolor.blue,  '#FFFFFF', 0.5	),
+				blue		= mix(procolor.blue,  '#000000', 0.4	),
+				mblue		= mix(procolor.blue, '#000000', 0.25	),
+				dblue		= mix(procolor.blue, '#000000', 0.10	),
 				lred		= mix(procolor.cherryred,	'#FFFFFF', 0.5	),
 				red			= mix(procolor.cherryred,	'#000000', 0.9	),
 				mred		= mix(procolor.cherryred,	'#000000', 0.5	),
 				dred		= mix(procolor.cherryred,	'#000000', 0.2	),
-				violet	= mix(procolor.violet,			'#000000', 0.9	),
-				lorange	= mix(procolor.orange, 		'#FFFFFF', 0.4	),
-				orange	= mix(procolor.orange, 		'#000000', 0.9	),
-				dorange	= mix(procolor.orange, 		'#000000', 0.2	),
+				violet	= mix(procolor.violet, '#000000', 0.9	),
+				lorange	= mix(procolor.orange, '#FFFFFF', 0.4	),
+				orange	= mix(procolor.orange, '#000000', 0.9	),
+				dorange	= mix(procolor.orange, '#000000', 0.2	),
 				turk		= mix(procolor.turquoise,	'#000000', 0.9	),
 				dturk		= mix(procolor.turquoise,	'#000000', 0.25	),
 				marc		= mix('#860050',	'#000000', 0.25	),
@@ -88,7 +91,7 @@ return { 'famiu/feline.nvim',
 				fg				= 'white',
 
 				-- Background color
-				bg				= 'dgreen',
+				bg				= 'NONE',
 				
 				-- Primary color
 				primary		= 'green',
@@ -146,6 +149,11 @@ return { 'famiu/feline.nvim',
 
 		local winsize = function(req)
 			return function() return vim.fn.winwidth(0) >= tonumber(req) end
+		end
+
+		-- TODO: Implement
+		local wm = function(name)
+			return function() return true end
 		end
 
 		local maxlen_mode = (function()
@@ -269,26 +277,26 @@ return { 'famiu/feline.nvim',
 			-- Errors
 			function(x)
 				if get_diagnostics(1)
-					then return "" end
-				return ' '
+					then return " " end
+				return '  '
 			end,
 			-- Warning
 			function(x)
 				if get_diagnostics(2)
-					then return "" end
-				return ' '
+					then return " " end
+				return '  '
 			end,
 			-- Hint
 			function(x)
 				if get_diagnostics(3)
-					then return "" end
-				return ' '
+					then return " " end
+				return '  '
 			end,
 			-- Info
 			function(x)
 				if get_diagnostics(4)
-					then return "" end
-				return ' '
+					then return " " end
+				return '  '
 			end
 		}
 
@@ -297,22 +305,22 @@ return { 'famiu/feline.nvim',
 			-- Added
 			function(x)
 				local git = vim.b.gitsigns_status_dict
-				if not git then return '' end
-				return string.format('%s%02d', '', math.min(git.added, 99))
+				if not git then return ' ' end
+				return string.format('%s%02d', ' ', math.min(git.added, 99))
 			end,
 
 			-- Remove
 			function(x)
 				local git = vim.b.gitsigns_status_dict
-				if not git then return '' end
-				return string.format('%s%02d', '', math.min(git.removed, 99))
+				if not git then return ' ' end
+				return string.format('%s%02d', ' ', math.min(git.removed, 99))
 			end,
 
 			-- Change
 			function(x)
 				local git = vim.b.gitsigns_status_dict
-				if not git then return '' end
-				return string.format('%s%02d', '', math.min(git.changed, 99))
+				if not git then return ' ' end
+				return string.format('%s%02d', ' ', math.min(git.changed, 99))
 			end,
 		}
 
@@ -474,7 +482,7 @@ return { 'famiu/feline.nvim',
 					'diagnosticsInfo',
 					1,
 					function(p)			return math.max(math.fmod(p + 1, #diagnosticsInfo + 1), 1) end,
-					function(p, c)	return 250 end,
+					function(p, c)	return 500 end,
 					function(c, x)
 						local lup = {
 								'red',
@@ -579,7 +587,7 @@ return { 'famiu/feline.nvim',
 
 			{ provider = 'makeTask',
 				left_sep = { 'vertical_bar', 'block' },
-				enabled = function() return not MinimalStatusline and winsize(140)() end,
+				enabled = function() return not MinimalStatusline and winsize(140)() and not wm('AwesomeWM') end,
 				lambda = jobmake('memory', 'free',
 					[[free --mega -s 1 | awk '$1 ~ /Mem:/ {print $3,$2}']],
 					{0, 0},
@@ -598,7 +606,7 @@ return { 'famiu/feline.nvim',
 			{ provider = 'makeTask',
 				left_sep = { 'block' },
 				-- right_sep = { 'block' },
-				enabled = function() return not MinimalStatusline and winsize(140)() end,
+				enabled = function() return not MinimalStatusline and winsize(140)() and not wm('AwesomeWM') end,
 				lambda = jobmake('cpu', 'mpstat',
 					[[mpstat -P all 1 | awk '$3 ~ /all/ {print $13}']],
 					0,
@@ -615,7 +623,7 @@ return { 'famiu/feline.nvim',
 
 			{ provider = 'makeTask',
 				format = '%H:%M:%S',
-				enabled = winsize(120),
+				enabled = function() return winsize(120) and not wm('AwesomeWM') end,
 				lambda = timermake(
 					'getTime',
 					nil,
@@ -638,7 +646,7 @@ return { 'famiu/feline.nvim',
 		conf.components.inactive[1] = {
 			{ provider = 'INACTIVE',
 				left_sep  = { 'block' },
-				right_sep = { 'block', 'slant_right_2' },
+				right_sep = { 'block' },
 				hl = function()
 					return {
 						fg = 'lgray',
@@ -660,7 +668,7 @@ return { 'famiu/feline.nvim',
 		-- Right aligned inactive components
 		conf.components.inactive[3] = {
 			{ provider = 'makeTask',
-				left_sep = { 'slant_left_2', 'block' },
+				left_sep = { 'block' },
 				right_sep = { 'block' },
 				format = '%H:%M:%S',
 				lambda = timermake(

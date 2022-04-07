@@ -3,6 +3,7 @@
 -- All the user installed colorschemes
 --
 return {
+	{"adisen99/apprentice.nvim", requires = {"rktjmp/lush.nvim"}},
 	'Shadorain/shadotheme',
 	'marko-cerovac/material.nvim',
 	'tanvirtin/monokai.nvim',
@@ -13,5 +14,6 @@ return {
 	'Mofiqul/dracula.nvim',
 	'rebelot/kanagawa.nvim',
 	'titanzero/zephyrium',
-	'shaeinst/roshnivim-cs'
+	'shaeinst/roshnivim-cs',
+	'bluz71/vim-nightfly-guicolors'
 	}

@@ -138,7 +138,7 @@ end
 --- Terminal commands
 local function getToken(at, tkn, nontkn, esc, cmd)
 	-- Retrieve non tkn
-	cmd = cmd:gsub(tkn, ' ﱢﱢﱢ ', 1)
+	cmd = cmd:gsub(tkn, ' ﱢ ﱢ ﱢ  ', 1)
 	cmd = cmd:gsub(esc, nontkn)
 	local param = vim.fn.input(string.format('(%s) > ', cmd))
 	if vim.fn.empty(param) > 0 then return nil end

@@ -19,11 +19,14 @@ local DEFAULT =(function()
 	M.misc.colors = {
 		["orange"] = "#FF9507",
 		["blue"] = "#179AFF",
+		["sapphire"] = "#2B50AA",
 		["cherryred"] = "#FF004D",
 		["turquoise"] = "#00F5CC",
 		["green"] = "#17FF7C",
 		["red"] = "#FF3E4B",
 		["yellow"] = "#DBED00",
+		["powder"] = "#F4F4ED",
+		["naplesyellow"] = "#FFDF64",
 		["violet"] = "#47007D",
 		["pink"] = "#FF69B4"
 	}
@@ -79,16 +82,15 @@ local PROFILES = {}
 PROFILES.DESKTOP = {
 	hooks = {
 		interface = function()
-			vim.cmd([[colorscheme rvcs]])
+			vim.cmd([[colorscheme zephyrium]])
 
 			vim.defer_fn(function()
 				local setHi = require('utils.modx').setHi
 				local mix		= require('utils.modx').mix
 
 				local persistent = {
-					selection = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) 
+					selection = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5)
 				}
-
 
 				setHi({
 					-- Line Number, above and below
@@ -97,8 +99,8 @@ PROFILES.DESKTOP = {
 					LineNrBelow			= { guifg = mix(PREFERENCES.misc.colors.orange,			'#000000', 0.5) },
 
 					-- Visual selection and normal text
-					Visual					= { guibg = persistent.selection },
-					Normal					= { guifg = mix('#FFFFFF',													'#000000', 0.90), guibg = 'NONE'},
+					Visual					= { guibg = persistent.selection, guifg = '#NONE'},
+					Normal					= { guifg = mix(PREFERENCES.misc.colors.orange,			'#FFFFFF', 0.50), guibg = 'NONE'},
 					MsgArea					= { gui='bold',  guibg = 'NONE', guifg = PREFERENCES.misc.colors.green},
 
 					-- Gutter

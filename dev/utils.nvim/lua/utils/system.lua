@@ -20,4 +20,10 @@ M.os = (function()
 	return nil
 end)()
 
+-- TODO: Implement
+M.wm = (function()
+	-- if vim.fn.has('AwesomeWM') == 1 then return 'win32' end
+	return nil
+end)()
+
 return M
