@@ -14,7 +14,7 @@
 	vim.opt.smarttab = false
 	vim.opt.shiftround = true
 	vim.opt.autoindent = true
-	vim.opt.smartindent = true
+	vim.opt.smartindent = false
 
 	vim.opt.cmdheight = 3
 	vim.opt.cmdwinheight = 10
@@ -52,7 +52,7 @@
 	augroup END]])
 
 	--- Timeouts
-	vim.opt.timeoutlen = 1000
+	vim.opt.timeoutlen = 500
 	vim.opt.ttimeoutlen = 0
 
 	--- Lazy redraw

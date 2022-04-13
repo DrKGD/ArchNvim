@@ -147,14 +147,15 @@ return { 'famiu/feline.nvim',
 			['null']	= 'NONE',
 		}
 
+		-- Compare window size
 		local winsize = function(req)
 			return function() return vim.fn.winwidth(0) >= tonumber(req) end
 		end
 
-		-- TODO: Implement
-		local wm = function(name)
-			return function() return true end
-		end
+		-- Returns wheter or not is using a tiling window manager
+		local tilewm = (function()
+			return vim.env.i3WM or vim.env.AwesaomeWM
+		end)()
 
 		local maxlen_mode = (function()
 			local len = 0
@@ -587,7 +588,7 @@ return { 'famiu/feline.nvim',
 
 			{ provider = 'makeTask',
 				left_sep = { 'vertical_bar', 'block' },
-				enabled = function() return not MinimalStatusline and winsize(140)() and not wm('AwesomeWM') end,
+				enabled = function() return not tilewm and not MinimalStatusline and winsize(140)() end,
 				lambda = jobmake('memory', 'free',
 					[[free --mega -s 1 | awk '$1 ~ /Mem:/ {print $3,$2}']],
 					{0, 0},
@@ -606,7 +607,7 @@ return { 'famiu/feline.nvim',
 			{ provider = 'makeTask',
 				left_sep = { 'block' },
 				-- right_sep = { 'block' },
-				enabled = function() return not MinimalStatusline and winsize(140)() and not wm('AwesomeWM') end,
+				enabled = function() return not tilewm and MinimalStatusline and winsize(140)() end,
 				lambda = jobmake('cpu', 'mpstat',
 					[[mpstat -P all 1 | awk '$3 ~ /all/ {print $13}']],
 					0,
@@ -623,7 +624,7 @@ return { 'famiu/feline.nvim',
 
 			{ provider = 'makeTask',
 				format = '%H:%M:%S',
-				enabled = function() return winsize(120) and not wm('AwesomeWM') end,
+				enabled = function() return not tilewm and winsize(120) end,
 				lambda = timermake(
 					'getTime',
 					nil,

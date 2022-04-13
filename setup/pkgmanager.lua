@@ -63,6 +63,7 @@ return (function()
 		usepkg('mini.nvim')
 		usepkg('bufdelete.nvim')
 		usepkg('harpoon.nvim')
+		usepkg('which-key.nvim')
 
 		--- Projects ---
 		usepkg('project.nvim')
