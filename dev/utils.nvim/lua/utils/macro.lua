@@ -201,7 +201,7 @@ M.setup = function()
 	local prefix = require('utils.config').options.uc_prefix
 
 	local uc = function(name, command, args)
-		vim.api.nvim_add_user_command(prefix .. name, command, args or {}) end
+		vim.api.nvim_create_user_command(prefix .. name, command, args or {}) end
 
 	uc('ToggleList', [[lua require('utils.macro').toggleList()]])
 	uc('ToggleSpell', [[lua require('utils.macro').toggleList()]])

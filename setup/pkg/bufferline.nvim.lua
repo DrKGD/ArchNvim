@@ -9,12 +9,6 @@ return { 'akinsho/bufferline.nvim',
 		local noop = function() end
 
 		require('bufferline').setup({
-			highlights = {
-				buffer_selected = {
-					gui = "none"
-				},
-			},
-
 			options = {
 				view = "multiwindow",
 				numbers = "ordinal",

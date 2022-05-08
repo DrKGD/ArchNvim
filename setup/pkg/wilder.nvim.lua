@@ -14,8 +14,8 @@ return { 'gelguy/wilder.nvim',
 
 			--- Required packages
 			requires = {
-					'nixprime/cpsm',
-					'romgrk/fzy-lua-native',
+					{ 'nixprime/cpsm', run='./install.sh' },
+					{'romgrk/fzy-lua-native'},
 				},
 
 

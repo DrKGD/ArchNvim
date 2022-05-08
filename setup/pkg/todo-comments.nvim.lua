@@ -22,7 +22,7 @@ return { 'folke/todo-comments.nvim',
 				-- TODO: testing
 				TODO	= {
 					icon	= ' ',
-					color = darken(C.sapphire),
+					color = darken(C.naplesyellow),
 					alt		= {'NOT_IMPLEMENTED', 'WIP', 'WORK_IN_PROGRESS'}
 				},
 

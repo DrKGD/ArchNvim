@@ -22,7 +22,7 @@ return { 'nvim-treesitter/nvim-treesitter',
 				enable = false,
 			},
 
-			ensure_installed = "maintained",
+			ensure_installed = "all",
 
 			rainbow = {
 				enable = true,
