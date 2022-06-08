@@ -34,6 +34,7 @@ return { 'neovim/nvim-lspconfig',
 		},
 	after = { 'utils.nvim', 'nvim-autopairs'},
 	config = function()
+
 		vim.g.coq_settings = {
 			auto_start = 'shut-up',
 

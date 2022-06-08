@@ -10,7 +10,7 @@ return { 'gelguy/wilder.nvim',
 			-- ]]),
 
 			--- Requires rocks
-			rocks = {'pcre2'} ,
+			rocks = { 'pcre2'},
 
 			--- Required packages
 			requires = {
@@ -80,6 +80,7 @@ return { 'gelguy/wilder.nvim',
 				local wildmenu_renderer = wilder.wildmenu_renderer({
 						highlighter = highlighters 
 					})
+
 
 				wilder.set_option('renderer', wilder.renderer_mux({
 						[':'] = popupmenu_renderer,

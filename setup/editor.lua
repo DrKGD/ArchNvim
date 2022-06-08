@@ -72,13 +72,19 @@
 	vim.opt.hidden = true
 	vim.opt.tabpagemax = 10
 
-	--- Folding
-	vim.opt.foldmethod = 'indent'
+	--- Automatically handlefd folding
 	vim.opt.foldlevel = 0
 	vim.opt.foldlevelstart = 99
-	vim.opt.foldenable = false
-	vim.opt.foldtext = '{...}'
-	vim.opt.foldignore = ''
+	vim.cmd([[augroup RememberFolds
+		autocmd!
+		au BufWinLeave ?* mkview 1
+		au BufWinEnter ?* silent! loadview 1
+	augroup END]])
+
+	-- vim.opt.foldmethod = 'indent'
+	-- vim.opt.foldenable = false
+	-- vim.opt.foldtext = '{...}'
+	-- vim.opt.foldignore = ''
 
 	--- Filetype but no indentation
 	vim.cmd([[filetype plugin on]])
@@ -154,8 +160,8 @@
 
 	vim.cmd([[augroup IndexTypes 
 		autocmd!
-		autocmd BufRead,BufNewFile *.cls setfiletype tex
-		autocmd BufRead,BufNewFile .neoproj setfiletype lua 
+		autocmd BufRead,BufNewFile,BufReadPost *.cls		set ft=tex
+		autocmd BufRead,BufNewFile,BufReadPost .neoproj set ft=lua 
 	augroup END]])
 
 	end)()

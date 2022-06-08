@@ -123,6 +123,9 @@ PROFILES.DESKTOP = {
 					SpecialComment	= { gui   = 'NONE' },
 					TSComment				= { gui   = 'NONE' },
 
+					-- Folds
+					Folded					= { guifg = mix(PREFERENCES.misc.colors.orange,				'#FFFFFF', 0.25), guibg = 'NONE'},
+
 					-- Telescope Buffer 
 					TelescopeNormal	= { gui = 'NONE' },
 					TelescopeBorder = { guibg = 'NONE' },

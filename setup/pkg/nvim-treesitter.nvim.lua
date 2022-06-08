@@ -48,4 +48,13 @@ return { 'nvim-treesitter/nvim-treesitter',
 				},
 			},
 		}
+
+		-- Folds with treesitter
+		vim.opt.foldmethod		= 'expr'
+		vim.opt.foldexpr			= "nvim_treesitter#foldexpr()"
+		vim.opt.foldminlines	= 1
+		vim.opt.foldnestmax		= 3
+		vim.opt.fillchars			= "fold: "
+		vim.opt.foldtext			= [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+		
 	end}

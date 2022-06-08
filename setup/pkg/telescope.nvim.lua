@@ -15,6 +15,8 @@ return { 'nvim-telescope/telescope.nvim',
 	config = function()
 		local tel = require('telescope')
 		local act = require('telescope.actions')
+		local path = require('utils.path')
+		local e,s,a,w,i	= require('utils.message').setup('macro.lua')
 
 		local grep = {
 			'rg',
@@ -55,14 +57,16 @@ return { 'nvim-telescope/telescope.nvim',
 			"packer_compiled.lua",										-- Ignore this file
 
 			-- Filetypes
-			".pdf$", ".docx$", ".xls$",							-- Compressed documents
-			".o$", ".d$", ".class$",								-- Hide compilation objects
-			".secret$",															-- Hidden
-			".exe$",																-- Executables
-			".png$", ".jpg$", ".jpeg$", ".gif$",		-- Image Media
-			".webp$", ".mp3$", ".wav$", ".flac$",		-- Audio Media
-			".mp4$", ".vlc$", ".mkv$",							-- Video Media
+			".pdf$", ".docx$", ".xls$",								-- Compressed documents
+			".zip$", ".rar$",													-- Archives
+			".o$", ".d$", ".class$",									-- Hide compilation objects
+			".secret$",																-- Hidden
+			".exe$",																	-- Executables
+			".png$", ".jpg$", ".jpeg$", ".gif$",			-- Image Media
+			".webp$", ".mp3$", ".wav$", ".flac$",			-- Audio Media
+			".mp4$", ".vlc$", ".mkv$",								-- Video Media
 		}
+
 
 		-- TODO: telescope find_files?
 		local unbinded = function()
@@ -256,6 +260,22 @@ return { 'nvim-telescope/telescope.nvim',
 			})
 		end
 
+		-- Use the file inside the current folder to detect with files to ignore
+		CSTelescope.wrap				= function(tbl, prompt)
+			if not tbl then return e("No table selected!") end
+			if not prompt then return e("No promprt selected!") end
+			local ignore_table = ignore
+			local ppath = vim.fn.getcwd() .. "/.telescope.lua"
+
+			if path.fileExists(ppath) then
+				local settings = loadfile(ppath)()
+				ignore_table = vim.tbl_deep_extend("force", ignore_table, settings or {})
+			end
+
+			return require(tbl)[prompt]({
+				file_ignore_patterns = ignore_table,
+			})
+		end
 
 		local bind = require('utils.wrap').bind
 
@@ -264,11 +284,14 @@ return { 'nvim-telescope/telescope.nvim',
 
 		-- Browser file, grep
 		bind({ noremap = true}, 'n', '<Leader><Tab>',	':Telescope buffers<CR>')
+		bind({ noremap = true}, 'n', '<Leader>.', ':lua CSTelescope.wrap("telescope.builtin", "find_files")<CR>')
 		bind({ noremap = true}, 'n', '<Leader>ff', ':Telescope find_files<CR>')
-		bind({ noremap = true}, 'n', '<Leader>tt', ':Telescope file_browser<CR>')
-		bind({ noremap = true}, 'n', '<Leader>.', ':Telescope find_files<CR>')
 		bind({ noremap = true}, 'n', '<C-f>', ':Telescope current_buffer_fuzzy_find<CR>')
 		bind({ noremap = true}, 'n', '<Leader>fs', ':Telescope live_grep<CR>')
+
+		-- Browser git 
+		bind({ noremap = true}, 'n', '<Leader>gs', ':Telescope git_status<CR>')
+		bind({ noremap = true}, 'n', '<Leader>gc', ':Telescope git_commits<CR>')
 
 		-- TODO: Rework this
 		bind({ noremap = true}, 'n', '<Leader>fcg',		':lua custom.telescope.config()<CR>')

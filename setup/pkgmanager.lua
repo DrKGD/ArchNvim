@@ -19,11 +19,26 @@ return (function()
 
 		-- Print error
 		if e then print(vim.inspect(e)) return end
+		if not f then print(string.format("%s was null!", file)) return end
 		return f()
 	end
 
 	local packer = require('packer')
-	packer.init({ auto_reload_compiled = false, config = { profile = { enable = true }}})
+	packer.init({
+		auto_reload_compiled = false,
+		luarocks = { python_cmd = 'python3' },
+		config = { profile = { enable = true }}
+	})
+
+
+	--- N.B.: use_rocks requires luarocks, check latest version here
+	---		http://luarocks.github.io/luarocks/releases/
+	--- Download & extract and configure
+	---		wget https://luarocks.org/releases/luarocks-3.9.0.tar.gz
+	---		tar zxpf luarocks-3.8.0.tar.gz
+	---		./configure --lua-version=5.1 --versioned-rocks-dir
+	---		make build
+	---		sudo make install
 	require('packer.luarocks').install_commands()
 	packer.startup(function(use, use_rocks)
 		local function usepkg(fn) use(pkg(fn)) end
@@ -64,6 +79,8 @@ return (function()
 		usepkg('bufdelete.nvim')
 		usepkg('harpoon.nvim')
 		usepkg('which-key.nvim')
+		usepkg('diffview.nvim')
+		usepkg('knap.nvim')
 
 		--- Projects ---
 		usepkg('project.nvim')
@@ -74,6 +91,9 @@ return (function()
 		--- LSP ---
 		usepkg('nvim-autopairs.nvim')
 		usepkg('lsp.grp')
+
+		--- DAP ---
+		usepkg('nvim-dap.nvim')
 
 
 		if bootstrap then
