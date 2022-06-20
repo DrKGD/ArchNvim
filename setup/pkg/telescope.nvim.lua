@@ -58,7 +58,7 @@ return { 'nvim-telescope/telescope.nvim',
 
 			-- Filetypes
 			".pdf$", ".docx$", ".xls$",								-- Compressed documents
-			".zip$", ".rar$",													-- Archives
+			".zip$", ".rar$", ".tar$",								-- Archives
 			".o$", ".d$", ".class$",									-- Hide compilation objects
 			".secret$",																-- Hidden
 			".exe$",																	-- Executables
