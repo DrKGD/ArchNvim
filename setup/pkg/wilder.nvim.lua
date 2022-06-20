@@ -11,6 +11,7 @@ return { 'gelguy/wilder.nvim',
 
 			--- Requires rocks
 			rocks = { 'pcre2'},
+			run = ":UpdateRemotePlugins"
 
 			--- Required packages
 			requires = {
